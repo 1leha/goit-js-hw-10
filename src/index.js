@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce';
 import notiflix from 'notiflix';
 import { clearCountries } from './js/clearCountries';
 import { renderOneCounrtry } from './js/renderOneCounrtry';
+import { removeActiveFromCountryInfo } from './js/removeActiveFromCountryInfo';
 
 const DEBOUNCE_DELAY = 300;
 const BASE_API_ENDPOINT_URL = 'https://restcountries.com/v3.1';
@@ -44,7 +45,7 @@ function onInput(e) {
 
       if (data.length > 1) {
         clearCountries(refs);
-        refs.countryInfo.classList?.remove('active');
+        removeActiveFromCountryInfo(refs);
         refs.countryList.innerHTML = renderCountryList(data);
         return;
       }
@@ -58,6 +59,7 @@ function onInput(e) {
     })
     .catch(error => {
       clearCountries(refs);
+      removeActiveFromCountryInfo(refs);
       notiflix.Notify.failure(FAIL_MESSAGE);
     });
 }
